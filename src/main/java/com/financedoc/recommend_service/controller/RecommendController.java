@@ -10,8 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class RecommendController {
 
     @GetMapping("/test")
-    public String test(@RequestHeader("X-User-Email") String email) {
-        return "Recommend Service Test OK & X-User-Email = "+ email;
+    public String test(
+            @RequestHeader(value = "X-User-Email", required = false) String email
+    ){
+        if (email == null) {
+            email = "null token"; // 기본값
+        }
+
+        return "Recommend Service Test OK & X-User-Email = "+email;
     }
 
 }
