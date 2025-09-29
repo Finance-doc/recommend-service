@@ -4,6 +4,10 @@ server:
 spring:
   application:
     name: recommend-service
+  datasource:
+    url: ${RECOMMEND_DATASOURCE_URL}
+    username: ${RECOMMEND_DATASOURCE_USERNAME}
+    password: ${RECOMMEND_DATASOURCE_PASSWORD}
 
 management:
   endpoints:
