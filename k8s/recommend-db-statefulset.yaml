@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: recommend-db
+  namespace: db
+spec:
+  serviceName: recommend-db
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recommend-db
+  template:
+    metadata:
+      labels:
+        app: recommend-db
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:15
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_DB
+              value: recommenddb
+            - name: POSTGRES_USER
+              value: user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: recommend-db-secret
+                  key: POSTGRES_PASSWORD
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata  # 서브디렉터리
+          volumeMounts:
+            - name: recommend-db-storage
+              mountPath: /var/lib/postgresql/data  # PVC 루트 마운트
+  volumeClaimTemplates:
+    - metadata:
+        name: recommend-db-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 10Gi
+        storageClassName: nks-block-storage
