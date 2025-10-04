@@ -13,9 +13,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Test SSH Connection
-        run: |
-          ssh -v -i ~/.ssh/ncp_private_key contest64@devtools.ncloud.com
+
 
 
       - name: Setup SSH for NCP SourceCommit

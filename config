@@ -1,0 +1,6 @@
+Host devtools.ncloud.com
+	User contest64
+	IdentityFile /c/Users/MSYUN/.ssh/id_sourcecommit
+	HostKeyAlgorithms +ssh-rsa
+	PubkeyAcceptedAlgorithms +ssh-rsa
+
