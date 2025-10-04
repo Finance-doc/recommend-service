@@ -13,25 +13,27 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Test SSH Connection
+        run: |
+          ssh -v -i ~/.ssh/ncp_private_key contest64@devtools.ncloud.com
+
 
       - name: Setup SSH for NCP SourceCommit
+
         run: |
           mkdir -p ~/.ssh/
           echo "${{ secrets.NCP_SOURCECOMMIT_SSH_KEY }}" > ~/.ssh/ncp_private_key
           chmod 600 ~/.ssh/ncp_private_key
+          
+          
 
-          cat <<EOF >> ~/.ssh/config
-          Host devtools.ncloud.com
-            User ${{ secrets.NCP_SOURCECOMMIT_USER }}
-            IdentityFile ~/.ssh/ncp_private_key
-            HostkeyAlgorithms +ssh-rsa
-            PubkeyAcceptedAlgorithms +ssh-rsa
-          EOF
+          echo "Host devtools.ncloud.com" >> ~/.ssh/config
+          echo "  User ${{ secrets.NCP_SOURCECOMMIT_USER }}" >> ~/.ssh/config
+          echo "  IdentityFile ~/.ssh/ncp_private_key" >> ~/.ssh/config
+          echo "  HostkeyAlgorithms +ssh-rsa" >> ~/.ssh/config
+          echo "  PubkeyAcceptedAlgorithms +ssh-rsa" >> ~/.ssh/config
 
           ssh-keyscan -H devtools.ncloud.com >> ~/.ssh/known_hosts
-
-      - name: Test SSH Connection (after setting up key)
-        run: ssh -v devtools.ncloud.com || true
 
       - name: Push to NCP SourceCommit
         run: |
