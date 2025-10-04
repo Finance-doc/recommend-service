@@ -1,0 +1,34 @@
+name: Sync to NCP SourceCommit
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup SSH for NCP SourceCommit
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.NCP_SOURCECOMMIT_SSH_KEY }}" > ~/.ssh/ncp_private_key
+          chmod 600 ~/.ssh/ncp_private_key
+
+          echo "Host devtools.ncloud.com" >> ~/.ssh/config
+          echo "  User ${{ secrets.NCP_SOURCECOMMIT_USER }}" >> ~/.ssh/config
+          echo "  IdentityFile ~/.ssh/ncp_private_key" >> ~/.ssh/config
+          echo "  HostkeyAlgorithms +ssh-rsa" >> ~/.ssh/config
+          echo "  PubkeyAcceptedAlgorithms +ssh-rsa" >> ~/.ssh/config
+
+          ssh-keyscan -H devtools.ncloud.com >> ~/.ssh/known_hosts
+
+      - name: Push to NCP SourceCommit
+        run: |
+          git remote add ncp "ssh://devtools.ncloud.com/3067145/fn-recommend-service.git"
+          git push ncp main --force
