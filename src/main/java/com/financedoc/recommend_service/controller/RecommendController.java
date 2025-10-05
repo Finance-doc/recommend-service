@@ -11,13 +11,9 @@ public class RecommendController {
 
     @GetMapping("/test")
     public String test(
-            @RequestHeader(value = "X-User-Email", required = false) String email
+            @RequestHeader(value = "X-User-Id") String userId
     ){
-        if (email == null) {
-            email = "null token"; // 기본값
-        }
-
-        return "Recommend Service Test OK & X-User-Email = "+email;
+        return "Recommend Service Test OK :: X-User-Id = "+userId;
     }
 
 }
