@@ -29,11 +29,11 @@ spec:
                 secretKeyRef:
                   name: recommend-db-secret
                   key: RECOMMEND_DATASOURCE_PASSWORD
-            - name: OPEN_API_KEY
+            - name: OPENAI_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: recommend-secret
-                  key: OPEN_API_KEY
+                  key: OPENAI_API_KEY
           resources:
             requests:
               memory: "512Mi"
