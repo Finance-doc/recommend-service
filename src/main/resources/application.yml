@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: k8s
+    active: local
 ---
 
 kakao:
