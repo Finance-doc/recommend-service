@@ -19,6 +19,8 @@ repositories {
 }
 
 dependencies {
+	implementation 'org.projectlombok:lombok'
+	implementation 'com.theokanning.openai-gpt3-java:service:0.18.2'
 	implementation 'com.h2database:h2'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'

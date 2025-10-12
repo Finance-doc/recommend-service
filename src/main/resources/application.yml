@@ -55,3 +55,6 @@ cloud:
 
     region:
       static: ap-northeast-2
+
+openai:
+  api-key: ${OPENAI_API_KEY}
