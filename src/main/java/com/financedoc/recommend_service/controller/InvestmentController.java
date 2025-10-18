@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/survey")
+@RequestMapping("/recommend")
 @RequiredArgsConstructor
 public class InvestmentController {
 
@@ -21,7 +21,7 @@ public class InvestmentController {
     public List<QuestionResponse> getQuestions() {
         return personalityService.getQuestions();
     }
-    @PostMapping()
+    @PostMapping("/survey")
     public PersonalitySurveyResponse savePersonality (
             @RequestHeader(value = "X-User-Id") Long userId,
             @RequestBody PersonalitySurveyRequest request
@@ -29,7 +29,8 @@ public class InvestmentController {
         return personalityService.calculateAndSave(userId, request);
     }
 
-    @GetMapping()
+
+    @GetMapping("/survey")
     public PersonalitySurveyResponse getPersonality(@RequestHeader(value = "X-User-Id") Long userId) {
         return personalityService.getPersonality(userId);
     }
