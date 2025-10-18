@@ -13,7 +13,7 @@ public class RecommendController {
     public String test(
             @RequestHeader(value = "X-User-Id") String userId
     ){
-        return "Recommend Service Test OK :: X-User-Id = "+userId;
+        return "db test "+userId;
     }
 
 }
