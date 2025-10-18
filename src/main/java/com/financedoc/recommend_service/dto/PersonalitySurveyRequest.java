@@ -9,5 +9,4 @@ import java.util.List;
 @Getter
 public class PersonalitySurveyRequest {
     private List<Integer> answers;
-    private List<String> selectedOptions;
 }
