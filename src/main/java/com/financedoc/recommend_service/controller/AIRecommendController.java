@@ -16,9 +16,9 @@ public class AIRecommendController {
     private final AiRecommendService aiRecommendService;
     private final PersonalityService personalityService;
 
-    @PostMapping("/{userId}/ai-report")
+    @PostMapping("/ai-report")
     public ResponseEntity<String> generateReport(
-            @PathVariable("userId") Long userId,
+            @RequestHeader(value = "X-User-Id") Long userId,
             @RequestBody AIRecommendRequest request
             ) {
         PersonalitySurveyResponse personalitySurveyResponse = personalityService.getPersonality(userId);
