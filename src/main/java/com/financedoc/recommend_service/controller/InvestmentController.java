@@ -21,7 +21,7 @@ public class InvestmentController {
     public List<QuestionResponse> getQuestions() {
         return personalityService.getQuestions();
     }
-    @PostMapping("/{userId}")
+    @PostMapping()
     public PersonalitySurveyResponse savePersonality (
             @RequestHeader(value = "X-User-Id") Long userId,
             @RequestBody PersonalitySurveyRequest request
@@ -29,7 +29,7 @@ public class InvestmentController {
         return personalityService.calculateAndSave(userId, request);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping()
     public PersonalitySurveyResponse getPersonality(@RequestHeader(value = "X-User-Id") Long userId) {
         return personalityService.getPersonality(userId);
     }
