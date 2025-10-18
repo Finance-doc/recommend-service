@@ -27,7 +27,6 @@ public class InvestmentController {
         return personalityService.getQuestions();
     }
     // 설문 점수 및 투자 성향 저장
-    @Transactional
     @PostMapping("/survey")
     public PersonalitySurveyResponse savePersonality (
             @RequestHeader(value = "X-User-Id") Long userId,
@@ -38,7 +37,7 @@ public class InvestmentController {
         // 점수 계산 및 성향 저장
         PersonalitySurveyResponse response = personalityService.calculateAndSave(userId, request);
 
-        chatHistoryService.saveAiMessage(userId, "당신은" + response + "투자자 성향입니다.");
+        chatHistoryService.saveAiMessage(userId, "당신은" + response.getPersonalityType() + "투자자 성향입니다.");
 
         return response;
     }
